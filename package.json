@@ -6,10 +6,9 @@
   "scripts": {
     "start": "node src/server.ts",
     "watch": "tsc-watch --esModuleInterop src/server.ts --outDir ./dist --onSuccess \"node ./dist/server.js\"",
-    "test": "jasmine-ts",
-    "tsc": "tsc"
+    "test": "SET ENV=test && npx tsc && db-migrate --env test up && jasmine && db-migrate db:drop test"
   },
-  "author": "Udacity",
+  "author": "Tim-Jn",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",
