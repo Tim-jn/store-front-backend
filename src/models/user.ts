@@ -3,7 +3,6 @@ import Client from "../database";
 
 export type User = {
   id: number;
-  user_name: string;
   first_name: string;
   last_name: string;
   password: string;
@@ -79,7 +78,8 @@ export class UserStore {
 
       return user;
     } catch (err) {
-      throw new Error(`Could not delete user ${id}. Error: ${err}`);
+      throw new Error(`Could not delete user
+       ${id}. Error: ${err}`);
     }
   }
 }
