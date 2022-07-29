@@ -40,7 +40,7 @@ export class UserStore {
     }
   }
 
-  async create(b: User): Promise<User> {
+  async create(user: User): Promise<User> {
     try {
       const sql =
         "INSERT INTO users (first_name, last_name, password) VALUES($1, $2, $3) RETURNING *";
@@ -48,18 +48,20 @@ export class UserStore {
       const conn = await client.connect();
 
       const result = await conn.query(sql, [
-        b.first_name,
-        b.last_name,
-        b.password,
+        user.first_name,
+        user.last_name,
+        user.password,
       ]);
 
-      const user = result.rows[0];
+      const newUser = result.rows[0];
 
       conn.release();
 
-      return user;
+      return newUser;
     } catch (err) {
-      throw new Error(`Could not add new user ${b.first_name}. Error: ${err}`);
+      throw new Error(
+        `Could not add new user ${user.first_name}. Error: ${err}`
+      );
     }
   }
 
