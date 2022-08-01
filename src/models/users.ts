@@ -92,4 +92,28 @@ export class UserStore {
        ${id}. Error: ${err}`);
     }
   }
+
+  async authenticate(authUser: User): Promise<User | null> {
+    // @ts-ignore
+    const conn = await client.connect();
+    const sql =
+      "SELECT password FROM users WHERE first_name = ($1) AND last_name = ($2)";
+
+    const result = await conn.query(sql, [
+      authUser.first_name,
+      authUser.last_name,
+    ]);
+
+    conn.release();
+
+    const pepper = process.env.BCRYPT_PASSWORD;
+
+    if (result.rows.length) {
+      const user = result.rows[0];
+      if (bcrypt.compareSync(authUser.password + pepper, user.password)) {
+        return user;
+      }
+    }
+    return null;
+  }
 }
