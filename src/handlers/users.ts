@@ -1,5 +1,7 @@
 import express, { Request, Response } from "express";
 import { User, UserStore } from "../models/users";
+import verifyAuthToken from "../middlewares/verifyAuthToken";
+import jwt from "jsonwebtoken";
 
 export const store = new UserStore();
 
@@ -25,7 +27,8 @@ const create = async (req: Request, res: Response) => {
     };
 
     const newUser = await store.create(user);
-    res.json(newUser);
+    var token = jwt.sign({ user: newUser }, process.env.TOKEN_SECRET as string);
+    res.json(token);
   } catch (err) {
     res.status(400);
     res.json(err);
@@ -33,15 +36,30 @@ const create = async (req: Request, res: Response) => {
 };
 
 const destroy = async (req: Request, res: Response) => {
-  const deleted = await store.delete(req.params.id);
-  res.json(deleted);
+  try {
+    const authorizationHeader = req.headers.authorization as string;
+    const token = authorizationHeader.split(" ")[1];
+    jwt.verify(token, process.env.TOKEN_SECRET as string);
+  } catch (err) {
+    res.status(401);
+    res.json("Access denied, invalid token");
+    return;
+  }
+
+  try {
+    const deleted = await store.delete(req.params.id);
+    res.json(deleted);
+  } catch (error) {
+    res.status(400);
+    res.json({ error });
+  }
 };
 
-const userRoutes = (app: express.Application) => {
-  app.get("/users", index);
-  app.get("/users/:id", show);
+const usersRoutes = (app: express.Application) => {
+  app.get("/users", verifyAuthToken, index);
+  app.get("/users/:id", verifyAuthToken, show);
   app.post("/users", create);
-  app.delete("/users/:id", destroy);
+  app.delete("/users/:id", verifyAuthToken, destroy);
 };
 
-export default userRoutes;
+export default usersRoutes;
