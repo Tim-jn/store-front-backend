@@ -1,5 +1,6 @@
 // @ts-ignore
 import client from "../database";
+import bcrypt from "bcrypt";
 
 export type User = {
   id: number;
@@ -47,10 +48,18 @@ export class UserStore {
       // @ts-ignore
       const conn = await client.connect();
 
+      const pepper = process.env.BCRYPT_PASSWORD;
+      const saltRounds = process.env.SALT_ROUND;
+
+      const hash = bcrypt.hashSync(
+        user.password + pepper,
+        parseInt(saltRounds as string)
+      );
+
       const result = await conn.query(sql, [
         user.first_name,
         user.last_name,
-        user.password,
+        hash,
       ]);
 
       const newUser = result.rows[0];
