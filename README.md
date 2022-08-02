@@ -26,7 +26,7 @@ Install the dependencies with `npm run install` or `yarn install`.
 
 * ### Step 3 : 
 
-Create .env file, containing all the required parameters to create connection to postgresql database
+Create .env file, containing all the required parameters to create connection to postgresql database.
 If the ENV variable is equal to test, the storefront_test database will be used instead of the storefront database. The file should look like this :
 
 ```POSTGRES_HOST = localhost
