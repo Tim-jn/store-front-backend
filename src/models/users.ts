@@ -3,7 +3,7 @@ import client from "../database";
 import bcrypt from "bcrypt";
 
 export type User = {
-  id: number;
+  id?: number;
   first_name: string;
   last_name: string;
   password: string;
@@ -90,6 +90,24 @@ export class UserStore {
     } catch (err) {
       throw new Error(`Could not delete user
        ${id}. Error: ${err}`);
+    }
+  }
+
+  // Only used for testing
+
+  async deleteAll(): Promise<any> {
+    try {
+      const sql = "TRUNCATE users, orders RESTART IDENTITY";
+      // @ts-ignore
+      const conn = await client.connect();
+
+      const result = await conn.query(sql);
+
+      conn.release();
+
+      return result.rows;
+    } catch (err) {
+      throw new Error(`Could not delete users. Error: ${err}`);
     }
   }
 
