@@ -51,44 +51,44 @@ ENV = dev
 #### Users
 
 ```
-- Index route : '/users' [GET] [token required]
+Index route : '/users' [GET] [token required]
 ```
 ```
-- Show route : '/users/:id' [GET] [token required]
+Show route : '/users/:id' [GET] [token required]
 ```
 ```
-- Create route : '/users' [POST] [token required]
+Create route : '/users' [POST] [token required]
 ```
 ```
-- Delete route : '/users/:id' [DELETE] [token required]
+Delete route : '/users/:id' [DELETE] [token required]
 ```
 
 #### Products
 
 ```
-- Index route : '/products' [GET]
+Index route : '/products' [GET]
 ```
 ```
-- Show route : '/products/:id' [GET]
+Show route : '/products/:id' [GET]
 ```
 ```
-- Create route : '/products' [POST] [token required]
+Create route : '/products' [POST] [token required]
 ```
 ```
-- Delete route : '/products/:id' [DELETE] [token required]
+Delete route : '/products/:id' [DELETE] [token required]
 ```
 
 #### Orders
 
 ```
-- Current Order by user (args: user id) : '/orders/:id' [GET] [token required]
+Current Order by user (args: user id) : '/orders/:id' [GET] [token required]
 ```
 
 ## Commands
 
-- Start server : `npm run start` or `yarn start`
-- Run tests : `npm run test` or `yarn test`
-- Watch server : `npm run watch` or `yarn watch`
+* Start server : `npm run start` or `yarn start`
+* Run tests : `npm run test` or `yarn test`
+* Watch server : `npm run watch` or `yarn watch`
 
 
 
