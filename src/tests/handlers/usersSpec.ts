@@ -3,12 +3,14 @@ import { User, UserStore } from "../../models/users";
 const store = new UserStore();
 
 describe("User Model", () => {
-  beforeAll(async () => {
-    await store.create({
-      first_name: "FirstName",
-      last_name: "LastName",
-      password: "password",
-    });
+  let newUser = {
+    first_name: "FirstName",
+    last_name: "LastName",
+    password: "password",
+  };
+
+  beforeEach(async () => {
+    store.index.length === 0 ? await store.create(newUser) : "";
   });
 
   it("should have an index method", () => {
@@ -28,14 +30,10 @@ describe("User Model", () => {
   });
 
   it("create method should add a user", async () => {
-    const user = await store.create({
-      first_name: "FirstName",
-      last_name: "LastName",
-      password: "password",
-    });
+    const user = await store.create(newUser);
 
     expect(user).toEqual({
-      id: jasmine.any(Number),
+      id: 2,
       first_name: "FirstName",
       last_name: "LastName",
       password: jasmine.any(String),
@@ -45,15 +43,25 @@ describe("User Model", () => {
   it("index method should return a list of users", async () => {
     const users = await store.index();
 
-    expect(users[0].first_name).toEqual("FirstName");
-    expect(users[0].last_name).toEqual("LastName");
+    expect(users).toEqual([
+      {
+        id: 1,
+        first_name: "FirstName",
+        last_name: "LastName",
+        password: jasmine.any(String),
+      },
+    ]);
   });
 
   it("show method should return the correct user", async () => {
     const user = await store.show("1");
 
-    expect(user.first_name).toEqual("FirstName");
-    expect(user.last_name).toEqual("LastName");
+    expect(user).toEqual({
+      id: 1,
+      first_name: "FirstName",
+      last_name: "LastName",
+      password: jasmine.any(String),
+    });
   });
 
   it("delete method should remove the user", async () => {
@@ -63,7 +71,7 @@ describe("User Model", () => {
     expect(user).toEqual([]);
   });
 
-  afterAll(async () => {
+  afterEach(async () => {
     await store.deleteAll();
   });
 });
