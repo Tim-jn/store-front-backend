@@ -10,7 +10,7 @@ describe("User Model", () => {
   };
 
   beforeEach(async () => {
-    store.index.length === 0 ? await store.create(newUser) : "";
+    await store.create(newUser);
   });
 
   it("should have an index method", () => {
