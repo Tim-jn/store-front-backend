@@ -41,6 +41,11 @@ TOKEN_SECRET = secret
 ENV = dev
 ```
 
+* ### Step 4 : 
+
+    * Run the server : `npm run watch` or `yarn watch`
+    * The database will run on port 5432. You can access the server on https://localhost:3000
+
 ## Endpoints
 
 #### Users
