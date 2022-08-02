@@ -54,6 +54,9 @@ ENV = dev
 ```
 - Create route : '/users' [POST] [token required]
 ```
+```
+- Delete route : '/users/:id' [DELETE] [token required]
+```
 
 #### Products
 
@@ -65,6 +68,9 @@ ENV = dev
 ```
 ```
 - Create route : '/products' [POST] [token required]
+```
+```
+- Delete route : '/products/:id' [DELETE] [token required]
 ```
 
 #### Orders
