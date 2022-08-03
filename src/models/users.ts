@@ -93,9 +93,9 @@ export class UserStore {
     }
   }
 
-  // Only used for testing
+  // Only used for testing, delete all users and orders
 
-  async deleteAll(): Promise<any> {
+  async deleteAll(): Promise<User[]> {
     try {
       const sql = "TRUNCATE users, orders RESTART IDENTITY";
       // @ts-ignore
