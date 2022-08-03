@@ -2,7 +2,7 @@
 import client from "../database";
 
 export type Product = {
-  id: number;
+  id?: number;
   name: string;
   price: number;
 };
@@ -76,6 +76,24 @@ export class ProductStore {
     } catch (err) {
       throw new Error(`Could not delete product
        ${id}. Error: ${err}`);
+    }
+  }
+
+  // Only used for testing, delete all users and orders
+
+  async deleteAll(): Promise<Product[]> {
+    try {
+      const sql = "TRUNCATE products RESTART IDENTITY";
+      // @ts-ignore
+      const conn = await client.connect();
+
+      const result = await conn.query(sql);
+
+      conn.release();
+
+      return result.rows;
+    } catch (err) {
+      throw new Error(`Could not delete products. Error: ${err}`);
     }
   }
 }
