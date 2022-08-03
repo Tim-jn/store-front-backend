@@ -26,7 +26,7 @@ const create = async (req: Request, res: Response) => {
     };
 
     const newProduct = await store.create(product);
-    var token = jwt.sign(
+    const token = jwt.sign(
       { product: newProduct },
       process.env.TOKEN_SECRET as string
     );
