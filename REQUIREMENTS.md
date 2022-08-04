@@ -26,24 +26,21 @@ These are the notes from a meeting with the frontend developer that describe wha
 
 #### Product
 
-- id
-- name
-- price
+|    id    |     name     |    price    |
+| :------- | :----------- | :---------- |
+| `number` |   `string`   |   `number`  |
 
 #### User
 
-- id
-- firstName
-- lastName
-- password
+|    id    |  first_name  |  last_name  |  password  | 
+| :------- | :----------- | :---------- | :--------- |
+| `number` |   `string`   |   `string`  |  `string`  |
 
 #### Orders
 
-- id
-- id of each product in the order
-- quantity of each product in the order
-- user_id
-- status of order (active or complete)
+|    id    |   order_id   |   quantity  |   user_id  |   status   |
+| :------- | :----------- | :---------- | :--------- | :--------- |
+| `number` |   `string`   |   `string`  |  `string`  |  `string`  |
 
 #### Database tables
 
