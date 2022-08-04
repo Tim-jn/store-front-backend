@@ -8,13 +8,23 @@ export const store = new UserStore();
 // Index route
 
 const index = async (_req: Request, res: Response) => {
-  const user = await store.index();
-  res.json(user);
+  try {
+    const user = await store.index();
+    res.json(user);
+  } catch (err) {
+    res.status(400);
+    res.json(err);
+  }
 };
 
 const show = async (req: Request, res: Response) => {
-  const user = await store.show(req.params.id);
-  res.json(user);
+  try {
+    const user = await store.show(req.params.id);
+    res.json(user);
+  } catch (err) {
+    res.status(400);
+    res.json(err);
+  }
 };
 
 const create = async (req: Request, res: Response) => {
