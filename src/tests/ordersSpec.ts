@@ -1,4 +1,4 @@
-import { Order, OrdersStore } from "../models/orders";
+import { Order, OrderProducts, OrdersStore } from "../models/orders";
 import { User, UserStore } from "../models/users";
 import { Product, ProductStore } from "../models/products";
 
@@ -19,11 +19,15 @@ describe("Order Model", () => {
       price: 150,
     });
 
-    await store.addOrder({
+    await store.create({
       user_id: 1,
+      status: "active",
+    });
+
+    await store.addOrder({
+      order_id: 1,
       product_id: 1,
       quantity: 1,
-      status: "active",
     });
   });
 
@@ -32,17 +36,15 @@ describe("Order Model", () => {
   });
 
   it("show method should return the correct order", async () => {
-    const order = await store.show(1); 
+    const order = await store.show(1);
 
-    const newOrder: any = [{
-      id: 1,
-      product_id: 1,
-      quantity: 1,
-      user_id: 1,
-      status: "active",
-    }];
-
-    expect(order).toEqual(newOrder);
+    expect(order).toEqual([
+      {
+        id: 1,
+        status: "active",
+        user_id: 1,
+      },
+    ]);
   });
 
   afterAll(async () => {
