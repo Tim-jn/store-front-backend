@@ -13,22 +13,6 @@ describe("User Model", () => {
     await store.create(newUser);
   });
 
-  it("should have an index method", () => {
-    expect(store.index).toBeDefined();
-  });
-
-  it("should have a show method", () => {
-    expect(store.show).toBeDefined();
-  });
-
-  it("should have a create method", () => {
-    expect(store.create).toBeDefined();
-  });
-
-  it("should have a delete method", () => {
-    expect(store.delete).toBeDefined();
-  });
-
   it("create method should add a user", async () => {
     const user = await store.create(newUser);
 
