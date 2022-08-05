@@ -6,7 +6,7 @@ export const store = new OrdersStore();
 
 const show = async (req: Request, res: Response) => {
   try {
-    const orders = await store.show(req.body.id);
+    const orders = await store.show(parseInt(req.params.id));
     res.json(orders);
   } catch (err) {
     res.status(400);
