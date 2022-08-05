@@ -44,7 +44,7 @@ export class OrdersStore {
     }
   }
 
-  async addOrder(order: OrderProducts): Promise<Order> {
+  async addOrder(order: OrderProducts): Promise<OrderProducts> {
     try {
       const conn = await client.connect();
 
