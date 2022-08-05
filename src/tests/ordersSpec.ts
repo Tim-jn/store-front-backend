@@ -7,7 +7,7 @@ const Productstore = new ProductStore();
 const Userstore = new UserStore();
 
 describe("Order Model", () => {
-  beforeAll(async () => {
+  beforeEach(async () => {
     await Userstore.create({
       first_name: "FirstName",
       last_name: "LastName",
@@ -18,36 +18,24 @@ describe("Order Model", () => {
       name: "TV",
       price: 150,
     });
+  });
 
+  it("create method should create an order and show method should return the order", async () => {
     await store.create({
       user_id: 1,
       status: "active",
     });
 
-    await store.addOrder({
-      order_id: 1,
-      product_id: 1,
-      quantity: 1,
+    const order = await store.show(1);
+
+    expect(order).toContain({
+      id: 1,
+      status: "active",
+      user_id: 1,
     });
   });
 
-  it("should have a show method", () => {
-    expect(store.show).toBeDefined();
-  });
-
-  it("show method should return the correct order", async () => {
-    const order = await store.show(1);
-
-    expect(order).toEqual([
-      {
-        id: 1,
-        status: "active",
-        user_id: 1,
-      },
-    ]);
-  });
-
-  afterAll(async () => {
+  afterEach(async () => {
     await Productstore.deleteAll();
     await Userstore.deleteAll();
   });
